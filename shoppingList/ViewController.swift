@@ -14,22 +14,42 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var items:[Item] = []
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         tableView.dataSource = self
+        
+        let itemOne = Item(name: "Milk")
+        let itemTwo = Item(name: "Blueberries")
+        let itemThree = Item(name: "cheese")
+        items = [itemOne,itemTwo,itemThree]
     }
 
     @IBAction func newItemButtonPressed(_ sender: Any)
     {
         
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return items.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        // can do let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")! but can crash
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")
+        {
+            
+            let itemName = items[indexPath.row].name
+            cell.textLabel?.text = itemName
+            return cell
+        } else {
+            return UITableViewCell()
+        }
     }
+    
+    
+   
 }
 
