@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         tableView.dataSource = self
         
-        let itemOne = Item(name: "Milk")
+        let itemOne = Item(name: "Milk", quantity: 2)
         let itemTwo = Item(name: "Blueberries")
         let itemThree = Item(name: "cheese")
         items = [itemOne,itemTwo,itemThree]
@@ -29,9 +29,25 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     @IBAction func newItemButtonPressed(_ sender: Any)
     {
+        if let newItemName = newItemTextFeild.text, newItemName != ""
+        {
+            let newItem = Item(name: newItemName)
+            items.append(newItem)
+            tableView.reloadData()
+        }
         
+      //  let alert = UIAlertController(title: "How much are you buying of your item?", message: nil, preferredStyle: .alert)
+      //  let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        
+      //  alert.addAction(ok)
+      //  present(alert, animated: true, completion: nil)
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return items.count
     }
     
@@ -42,7 +58,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         {
             
             let itemName = items[indexPath.row].name
+            let itemQuantity = items[indexPath.row].quantity
             cell.textLabel?.text = itemName
+            cell.detailTextLabel?.text = "Quantity: \(itemQuantity)"
             return cell
         } else {
             return UITableViewCell()
