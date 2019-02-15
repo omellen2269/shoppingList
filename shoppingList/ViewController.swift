@@ -36,11 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             tableView.reloadData()
         }
         
-      //  let alert = UIAlertController(title: "How much are you buying of your item?", message: nil, preferredStyle: .alert)
-      //  let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         
-      //  alert.addAction(ok)
-      //  present(alert, animated: true, completion: nil)
     }
     
     
@@ -67,7 +63,13 @@ class ViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let nvc = segue.destination as! SecondViewController
+            let currentItem = items[indexPath.row]
+            nvc.passedItem = currentItem
+        }
+    }
    
 }
 
